@@ -14,13 +14,6 @@
   <body>
     <div id="root" class="ui container" style="margin-top:40px">
       <div class="ui container">
-        <!-- <div class="ui form">
-          <div class="field">
-            <input type="text" placeholder="Letter">
-          </div>
-          <div class="field">
-            <input type="text" placeholder="Frequency">
-          </div> -->
           <div class="ui input">
             <input type="text" v-model="letter" placeholder="Letter">
           </div>
@@ -28,30 +21,20 @@
             <input type="text" v-model="frequency" placeholder="Frequency">
           </div>
           <button class="ui blue button" v-on:click="addDataHalaman1($event)">+ add</button>
-          <!-- <button class="ui blue button" type="submit">Login</button> -->
-        <!-- </div> -->
       </div>
       <br>
 
-      <!-- <div class="row"> -->
-
-      <!-- </div> -->
       <div class="row">
         <h1>Search</h1>
         <hr>
       </div>
       <div class="ui container">
-        <!-- <div class="ui form"> -->
-          <!-- <div class="fields"> -->
             <div class="ui input">
               <input v-model="cariLetter" v-on:keyup='searchMulti()' type="text" placeholder="Letter">
             </div>
             <div class="ui input">
               <input v-model="cariFreq" v-on:keyup='searchMulti()' type="text" placeholder="Frequency">
             </div>
-            <!-- <br> -->
-          <!-- </div> -->
-        <!-- </div> -->
       </div>
       <br>
       <div class="ui container">
@@ -71,15 +54,12 @@
               <td>{{halaman1.frequency}}</td>
               <td>
                 <button class="ui teal button" >Update</button>
-                <button class="ui red button" >Delete</button>
+                <button class="ui red button" v-on:click='deleteDataHalaman1(halaman1._id)' >Delete</button>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
-
-
-
 
     </div>
   </body>
@@ -135,21 +115,24 @@
             }
           })
         },
-        // deleteTweet: function (ccc) {
-        //   $.ajax({
-        //     type: 'DELETE',
-        //     url: 'http://localhost:3000/'+ccc,
-        //     success: function (data) {
-        //       app.loadHalaman1();
-        //       // alert('Data berhasil dihapus')
-        //     },
-        //     error: function (err) {
-        //       console.log(err)
-        //     }
-        //   })
-        // }
+
+        deleteDataHalaman1: function (ccc) {
+          $.ajax({
+            type: 'DELETE',
+            url: 'http://localhost:3000/dataujian/'+ccc,
+            success: function (data) {
+              alert('Data berhasil dihapus')
+              app.loadHalaman1();
+              // alert('Data berhasil dihapus')
+            },
+            error: function (err) {
+              console.log(err)
+            }
+          })
+        }
       }
     })
+    
     app.loadHalaman1();
   </script>
 
