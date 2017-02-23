@@ -6,8 +6,6 @@ router.post('/', dataujianController.create)
 
 router.get('/', dataujianController.find)
 
-// router.get('/search', dataujianController.search)
-
 router.get('/multiSearch', dataujianController.multiSearch)
 
 router.put('/:id', dataujianController.update)
