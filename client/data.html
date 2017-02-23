@@ -22,12 +22,12 @@
             <input type="text" placeholder="Frequency">
           </div> -->
           <div class="ui input">
-            <input type="text" placeholder="Letter">
+            <input type="text" v-model="letter" placeholder="Letter">
           </div>
           <div class="ui input">
-            <input type="text" placeholder="Frequency">
+            <input type="text" v-model="frequency" placeholder="Frequency">
           </div>
-          <button class="ui blue button" type="submit">+ add</button>
+          <button class="ui blue button" v-on:click="addDataHalaman1($event)">+ add</button>
           <!-- <button class="ui blue button" type="submit">Login</button> -->
         <!-- </div> -->
       </div>
@@ -92,7 +92,7 @@
       data: {
         cariLetter: '',
         cariFreq: '',
-        Letter:'',
+        letter:'',
         frequency:'',
         halaman1s: []
       },
@@ -118,25 +118,23 @@
           })
         },
 
-        // addTweet: function(event) {
-        //   if (event) event.preventDefault()
-        //   $.ajax({
-        //     type: 'POST',
-        //     url: 'http://localhost:3000/',
-        //     data : {
-        //       avatar_url: "https://pbs.twimg.com/profile_images/831659029050953728/gsdRN4K6.jpg",
-        //       username: app.username,
-        //       content: app.content
-        //     },
-        //     success: function (data) {
-        //       app.avatar_url= ''
-        //       app.username= ''
-        //       app.content= ''
-        //       app.halaman1s.unshift(data)
-        //
-        //     }
-        //   })
-        // },
+        addDataHalaman1: function(event) {
+          if (event) event.preventDefault()
+          $.ajax({
+            type: 'POST',
+            url: 'http://localhost:3000/dataujian',
+            data : {
+              letter: app.letter,
+              frequency: app.frequency
+            },
+            success: function (data) {
+              app.letter= ''
+              app.frequency= ''
+              app.halaman1s.unshift(data)
+
+            }
+          })
+        },
         // deleteTweet: function (ccc) {
         //   $.ajax({
         //     type: 'DELETE',
