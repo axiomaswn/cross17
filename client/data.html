@@ -30,10 +30,10 @@
       </div>
       <div class="ui container">
             <div class="ui input">
-              <input v-model="cariLetter" v-on:keyup='searchMulti()' type="text" placeholder="Letter">
+              <input v-model="cariLetter" v-on:keyup='searchMulti()' type="text" placeholder="by letter">
             </div>
             <div class="ui input">
-              <input v-model="cariFreq" v-on:keyup='searchMulti()' type="text" placeholder="Frequency">
+              <input v-model="cariFreq" v-on:keyup='searchMulti()' type="text" placeholder="by frequency">
             </div>
       </div>
       <br>
@@ -53,7 +53,7 @@
               <td>{{halaman1.letter}}</td>
               <td>{{halaman1.frequency}}</td>
               <td>
-                <button class="ui teal button" >Update</button>
+                <button class="ui teal button" onclick="edit()"  >Update</button>
                 <button class="ui red button" v-on:click='deleteDataHalaman1(halaman1._id)' >Delete</button>
               </td>
             </tr>
@@ -61,8 +61,37 @@
         </table>
       </div>
 
+      <div class="small modal ui segment">
+        <!-- <div class="ui container segment">
+
+        </div> -->
+        <div class="header">Update Data</div>
+        <div class="ui form">
+            <div class="field">
+              <input v-model="cariLetter" v-on:keyup='searchMulti()' type="text" placeholder="Letter">
+            </div>
+            <br>
+            <div class="field">
+              <input v-model="cariFreq" v-on:keyup='searchMulti()' type="text" placeholder="Frequency">
+            </div>
+        </div>
+        <div class="actions">
+          <div class="ui teal button">Submit</div>
+          <!-- <div class="ui button">Neutral</div>
+          <div class="ui cancel button">Cancel</div> -->
+        </div>
+      </div>
+
+
+
+
     </div>
   </body>
+  <script type="text/javascript">
+    function edit(){
+      $('.small.modal').modal('show');
+    };
+  </script>
 
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
 
@@ -75,6 +104,10 @@
         letter:'',
         frequency:'',
         halaman1s: []
+      },
+      get: {
+        letter:'',
+        frequency:''
       },
       methods: {
         loadHalaman1: function() {
@@ -132,7 +165,7 @@
         }
       }
     })
-    
+
     app.loadHalaman1();
   </script>
 

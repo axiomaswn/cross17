@@ -24,6 +24,12 @@ module.exports = {
     })
   },
 
+  getData: function(req,res){
+    House.findOne({_id:req.params.id})
+    .then(function(data){
+      res.json(data)
+    })
+  },
 
   delete : function(req, res, next) {
     DataUjian.remove({_id: req.params.id}, function (err, data){
