@@ -12,12 +12,11 @@
     <title></title>
   </head>
   <body>
-    <div class="ui container" style="margin-top:40px">
+    <div id="root" class="ui container" style="margin-top:40px">
       <div class="row">
         <button class="ui blue button" type="submit">+ add</button>
       </div>
       <div class="row">
-        <!-- <hr> -->
         <h1>Search</h1>
         <hr>
       </div>
@@ -25,17 +24,11 @@
         <div class="ui form">
           <div class="fields">
             <div class="field">
-              <!-- <label>First name</label> -->
-              <input type="text" placeholder="Letter">
+              <input v-model="cariLetter" v-on:keyup='searchMulti()' type="text" placeholder="Letter">
             </div>
             <div class="field">
-              <!-- <label>Middle name</label> -->
-              <input type="text" placeholder="Frequency">
+              <input v-model="cariFreq" v-on:keyup='searchMulti()' type="text" placeholder="Frequency">
             </div>
-            <!-- <div class="field">
-              <label>Last name</label>
-              <input type="text" placeholder="Last Name">
-            </div> -->
           </div>
         </div>
       </div>
@@ -50,12 +43,12 @@
               <td>Actions</td>
             </tr>
           </thead>
-          <tbody>
+          <tbody v-for="halaman1 in halaman1s">
             <tr>
-              <td>data</td>
-              <td>data</td>
-              <td>data</td>
-              <td>data</td>
+              <td>1</td>
+              <td>{{halaman1.letter}}</td>
+              <td>{{halaman1.frequency}}</td>
+              <td>delete update</td>
             </tr>
           </tbody>
         </table>
@@ -63,4 +56,76 @@
     </div>
 
   </body>
+
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+  <script type="text/javascript">
+    var app = new Vue({
+      el: '#root',
+      data: {
+        cariLetter: '',
+        cariFreq: '',
+        Letter:'',
+        frequency:'',
+        halaman1s: []
+      },
+      methods: {
+        loadHalaman1: function() {
+          $.ajax({
+            type: 'GET',
+            url: 'http://localhost:3000/dataujian',
+            success: function (data) {
+              console.log(data);
+              app.halaman1s = data
+
+            }
+          })
+        },
+        searchMulti: function() {
+          $.ajax({
+            type: 'GET',
+            url: `http://localhost:3000/dataujian/multiSearch?letter=${app.cariLetter}&freq=${app.cariFreq}`,
+            success: function (data) {
+              app.halaman1s = data
+            }
+          })
+        },
+
+        // addTweet: function(event) {
+        //   if (event) event.preventDefault()
+        //   $.ajax({
+        //     type: 'POST',
+        //     url: 'http://localhost:3000/',
+        //     data : {
+        //       avatar_url: "https://pbs.twimg.com/profile_images/831659029050953728/gsdRN4K6.jpg",
+        //       username: app.username,
+        //       content: app.content
+        //     },
+        //     success: function (data) {
+        //       app.avatar_url= ''
+        //       app.username= ''
+        //       app.content= ''
+        //       app.halaman1s.unshift(data)
+        //
+        //     }
+        //   })
+        // },
+        // deleteTweet: function (ccc) {
+        //   $.ajax({
+        //     type: 'DELETE',
+        //     url: 'http://localhost:3000/'+ccc,
+        //     success: function (data) {
+        //       app.loadHalaman1();
+        //       // alert('Data berhasil dihapus')
+        //     },
+        //     error: function (err) {
+        //       console.log(err)
+        //     }
+        //   })
+        // }
+      }
+    })
+    app.loadHalaman1();
+  </script>
+
 </html>
