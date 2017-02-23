@@ -1,4 +1,4 @@
-const DataUjian = require('../models/user');
+const User = require('../models/user');
 var passwordHash = require('password-hash');
 const jwt = require('jsonwebtoken');
 
@@ -27,6 +27,7 @@ module.exports = {
       res.json("you cant access this page")
     }else{
       if (jwt.verify(req.headers.token, process.env.SECRET)) {
+        console.log('berhasil login');
         next()
       }else {
         res.json("token expried")

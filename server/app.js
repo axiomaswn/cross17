@@ -9,7 +9,8 @@ var index = require('./routes/index');
 var users = require('./routes/users');
 var dataujian = require('./routes/dataujian');
 var datadate = require('./routes/datadate');
-
+var passport = require('passport')
+require('dotenv').config()
 const cors = require('cors');
 
 mongoose.Promise = global.Promise;
@@ -30,6 +31,11 @@ app.set('view engine', 'ejs');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+
+app.use(passport.initialize())
+require('./config/passport')(passport)
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

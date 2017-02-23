@@ -13,7 +13,7 @@
   </head>
   <body>
 
-    <div class="ui container " style="margin-top:40px">
+    <div class="ui container " id="root" style="margin-top:40px">
 
       <div class="rwo ui grid">
         <div class="four wide column"></div>
@@ -30,7 +30,7 @@
                   <input type="text" placeholder="Username">
                 </div>
                 <div class="field">
-                  <input type="text" placeholder="Password">
+                  <input type="password" placeholder="Password">
                 </div>
                 <button class="ui blue button" type="submit">Login</button>
               </div>
@@ -38,13 +38,13 @@
             <div class="ui bottom attached tab segment" data-tab="second">
               <div class="ui form">
                 <div class="field">
-                  <input type="text" placeholder="Username">
+                  <input type="text" v-model="username"placeholder="Username">
                 </div>
                 <div class="field">
-                  <input type="text" placeholder="Password">
+                  <input type="password" v-model="password" placeholder="Password">
                 </div>
                 <div class="field">
-                  <input type="text" placeholder="Email">
+                  <input type="text" v-model="email" placeholder="Email">
                 </div>
                 <button class="ui teal button" type="submit">Register</button>
               </div>
@@ -61,4 +61,41 @@
   ;
 </script>
   </body>
+
+
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+
+  <script type="text/javascript">
+    var app = new Vue({
+      el: '#root',
+      data: {
+        username: '',
+        password: '',
+        email:'',
+        halaman1s: []
+      },
+      methods: {
+        addDataHalaman1: function(event) {
+          if (event) event.preventDefault()
+          $.ajax({
+            type: 'POST',
+            url: 'http://localhost:3000/dataujian',
+            data : {
+              letter: app.letter,
+              frequency: app.frequency
+            },
+            success: function (data) {
+              app.username= ''
+              app.password= ''
+              app.email.unshift(data)
+
+            }
+          })
+        }
+
+      }
+    })
+
+    app.loadHalaman1();
+  </script>
 </html>
