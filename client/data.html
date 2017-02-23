@@ -13,26 +13,47 @@
   </head>
   <body>
     <div id="root" class="ui container" style="margin-top:40px">
-      <div class="row">
-        <button class="ui blue button" type="submit">+ add</button>
+      <div class="ui container">
+        <!-- <div class="ui form">
+          <div class="field">
+            <input type="text" placeholder="Letter">
+          </div>
+          <div class="field">
+            <input type="text" placeholder="Frequency">
+          </div> -->
+          <div class="ui input">
+            <input type="text" placeholder="Letter">
+          </div>
+          <div class="ui input">
+            <input type="text" placeholder="Frequency">
+          </div>
+          <button class="ui blue button" type="submit">+ add</button>
+          <!-- <button class="ui blue button" type="submit">Login</button> -->
+        <!-- </div> -->
       </div>
+      <br>
+
+      <!-- <div class="row"> -->
+
+      <!-- </div> -->
       <div class="row">
         <h1>Search</h1>
         <hr>
       </div>
-      <div class="row">
-        <div class="ui form">
-          <div class="fields">
-            <div class="field">
+      <div class="ui container">
+        <!-- <div class="ui form"> -->
+          <!-- <div class="fields"> -->
+            <div class="ui input">
               <input v-model="cariLetter" v-on:keyup='searchMulti()' type="text" placeholder="Letter">
             </div>
-            <div class="field">
+            <div class="ui input">
               <input v-model="cariFreq" v-on:keyup='searchMulti()' type="text" placeholder="Frequency">
             </div>
-          </div>
-        </div>
+            <!-- <br> -->
+          <!-- </div> -->
+        <!-- </div> -->
       </div>
-
+      <br>
       <div class="ui container">
         <table class="ui striped table">
           <thead>
@@ -48,13 +69,19 @@
               <td>1</td>
               <td>{{halaman1.letter}}</td>
               <td>{{halaman1.frequency}}</td>
-              <td>delete update</td>
+              <td>
+                <button class="ui teal button" >Update</button>
+                <button class="ui red button" >Delete</button>
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
-    </div>
 
+
+
+
+    </div>
   </body>
 
   <script src="https://unpkg.com/vue/dist/vue.js"></script>
