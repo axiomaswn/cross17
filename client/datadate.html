@@ -15,7 +15,7 @@
     <div id="root" class="ui container" style="margin-top:40px">
       <div class="ui container">
           <div class="ui input">
-            <input type="text" v-model="letter" placeholder="Letter">
+            <input type="date" v-model="tanggal" placeholder="Tanggal">
           </div>
           <div class="ui input">
             <input type="text" v-model="frequency" placeholder="Frequency">
@@ -25,12 +25,12 @@
       <br>
 
       <div class="row">
-        <h1>Search Letter</h1>
+        <h1>Search Page Date</h1>
         <hr>
       </div>
       <div class="ui container">
             <div class="ui input">
-              <input v-model="cariLetter" v-on:keyup='searchMulti()' type="text" placeholder="by letter">
+              <input v-model="cariTanggal" v-on:keyup='searchMulti()' type="text" placeholder="by tanggal">
             </div>
             <div class="ui input">
               <input v-model="cariFreq" v-on:keyup='searchMulti()' type="text" placeholder="by frequency">
@@ -42,7 +42,7 @@
           <thead>
             <tr>
               <td>#</td>
-              <td>Letter</td>
+              <td>Tanggal</td>
               <td>Frequency</td>
               <td>Actions</td>
             </tr>
@@ -50,7 +50,7 @@
           <tbody v-for="halaman1 in halaman1s">
             <tr>
               <td>#</td>
-              <td>{{halaman1.letter}}</td>
+              <td>{{halaman1.tanggal}}</td>
               <td>{{halaman1.frequency}}</td>
               <td>
                 <button class="ui teal button" v-on:click='getHalaman1(halaman1._id)' onclick="edit()"  >Update</button>
@@ -65,7 +65,7 @@
         <div class="header">Update Data</div>
         <div class="ui form">
             <div class="field">
-              <input v-model="get.letter"type="text" placeholder="Letter">
+              <input v-model="get.tanggal"type="text" placeholder="Tanggal">
             </div>
             <br>
             <div class="field">
@@ -97,13 +97,13 @@
     var app = new Vue({
       el: '#root',
       data: {
-        cariLetter: '',
+        cariTanggal: '',
         cariFreq: '',
-        letter:'',
+        tanggal:'',
         frequency:'',
         get: {
           _id:'',
-          letter:'',
+          tanggal:'',
           frequency:''
         },
         halaman1s: []
@@ -112,7 +112,7 @@
         loadHalaman1: function() {
           $.ajax({
             type: 'GET',
-            url: 'http://localhost:3000/dataujian',
+            url: 'http://localhost:3000/datadate',
             success: function (data) {
               console.log(data);
               app.halaman1s = data
@@ -124,10 +124,10 @@
         getHalaman1: function(id) {
           $.ajax({
             type: 'GET',
-            url: `http://localhost:3000/dataujian/${id}`,
+            url: `http://localhost:3000/datadate/${id}`,
             success: function (data) {
               app.get._id = data._id
-              app.get.letter = data.letter
+              app.get.tanggal = data.tanggal
               app.get.frequency = data.frequency
             }
           })
@@ -136,7 +136,7 @@
         searchMulti: function() {
           $.ajax({
             type: 'GET',
-            url: `http://localhost:3000/dataujian/multiSearch?letter=${app.cariLetter}&freq=${app.cariFreq}`,
+            url: `http://localhost:3000/datadate/multiSearch?tanggal=${app.cariTanggal}&freq=${app.cariFreq}`,
             success: function (data) {
               app.halaman1s = data
             }
@@ -147,13 +147,13 @@
           if (event) event.preventDefault()
           $.ajax({
             type: 'POST',
-            url: 'http://localhost:3000/dataujian',
+            url: 'http://localhost:3000/datadate',
             data : {
-              letter: app.letter,
+              tanggal: app.tanggal,
               frequency: app.frequency
             },
             success: function (data) {
-              app.letter= ''
+              app.tanggal= ''
               app.frequency= ''
               app.halaman1s.unshift(data)
 
@@ -164,7 +164,7 @@
         deleteDataHalaman1: function (ccc) {
           $.ajax({
             type: 'DELETE',
-            url: 'http://localhost:3000/dataujian/'+ccc,
+            url: 'http://localhost:3000/datadate/'+ccc,
             success: function (data) {
               alert('Data berhasil dihapus')
               app.loadHalaman1();
@@ -178,10 +178,10 @@
 
         updateDataHalaman1: function(xxx){
           $.ajax({
-            url: `http://localhost:3000/dataujian/${xxx}`,
+            url: `http://localhost:3000/datadate/${xxx}`,
             type: 'PUT',
             data: {
-              letter: app.get.letter,
+              tanggal: app.get.tanggal,
               frequency: app.get.frequency
             },
             success: function(data) {
