@@ -25,7 +25,7 @@ module.exports = {
   },
 
   getData: function(req,res){
-    House.findOne({_id:req.params.id})
+    DataUjian.findOne({_id:req.params.id})
     .then(function(data){
       res.json(data)
     })

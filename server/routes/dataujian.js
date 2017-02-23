@@ -8,6 +8,8 @@ router.get('/', dataujianController.find)
 
 router.get('/multiSearch', dataujianController.multiSearch)
 
+router.get('/:id', dataujianController.getData)
+
 router.put('/:id', dataujianController.update)
 
 router.delete('/:id', dataujianController.delete)
