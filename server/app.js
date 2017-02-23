@@ -4,9 +4,22 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+const mongoose = require('mongoose');
 var index = require('./routes/index');
 var users = require('./routes/users');
+var dataujian = require('./routes/dataujian');
+
+const cors = require('cors');
+
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost:27017/yoma-ujian')
+const db = mongoose.connection
+
+db.on("error", console.error.bind(console, "koneksi bermasalah"))
+db.once("open", function(callback){
+  console.log("koneksi database menggunakan mongoose");
+})
+
 
 var app = express();
 
@@ -24,6 +37,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/dataujian', dataujian);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
